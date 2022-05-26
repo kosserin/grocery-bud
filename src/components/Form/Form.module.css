@@ -1,0 +1,41 @@
+.form {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.form > * {
+    height: 2.5rem;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    font-size: 1rem;
+}
+
+.form input {
+    background-color: rgba(14, 2, 15, 1);
+    font-weight: 400;
+    padding-inline: 8px;
+    flex-grow: 1;
+}
+
+.form button {
+    font-weight: 500;
+    background-color: rgb(60, 3, 65);
+    cursor: pointer;
+    padding: 0 1.25rem;
+    transition: 250ms ease-out;
+}
+
+.form button:hover {
+    background-color: rgba(14, 2, 15, 1);
+}
+
+
+@media(max-width: 500px) {
+    .form {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
