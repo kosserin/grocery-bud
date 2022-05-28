@@ -10,7 +10,7 @@ const List = () => {
 
   return (
     <ul className={styles.list}>
-      {ctx.items.map(item => <Item id={item.id} key={item.id} text={item.text} />)}
+      {ctx.items.map(item => <Item id={item.id} key={item.id} text={item.text} checked={item.checked} />)}
     </ul>
   )
 }

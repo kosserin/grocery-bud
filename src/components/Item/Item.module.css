@@ -9,8 +9,11 @@
     transition: 250ms ease-out;
 }
 
+.item.checked {
+    background-color: rgba(0, 255, 0, .1);
+}
+
 .item:hover {
-    background-color: rgba(255, 255, 255, .05);
     transform: translateY(-2px);
 }
 
@@ -18,6 +21,10 @@
     flex-grow: 1;
     font-weight: 600;
     font-size: 1rem;
+}
+
+.item h3.checked {
+    text-decoration: line-through;
 }
 
 .item span {
