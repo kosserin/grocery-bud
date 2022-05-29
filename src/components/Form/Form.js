@@ -21,6 +21,7 @@ const Form = () => {
     const newItem = {
       id: uuidv4(),
       text: inputValue,
+      checked: false,
     }
     ctx.onAddItem(newItem);
     inputRef.current.value = "";

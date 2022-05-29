@@ -6,6 +6,7 @@ export const BudContext = React.createContext({
     onClearAll: () => {},
     onRemoveItem: (id) => {},
     onCheckItem: (id) => {},
+    onClearCompleted: () => {},
 })
 
 export default props => {
@@ -32,11 +33,17 @@ export default props => {
         setItems(prev => {
             let foundItem = prev.find(item => item.id == id);
             let indexOfItem = prev.indexOf(foundItem);
-            console.log(indexOfItem);
-            foundItem = {...foundItem, checked: true}
-            prev[indexOfItem] = foundItem;
-            console.log(prev);
-            return prev;
+            foundItem = {...foundItem, checked: !foundItem.checked};
+            let newItems = [...prev];
+            newItems[indexOfItem] = foundItem;
+            return newItems;
+        })
+    }
+
+    const clearCompletedHandler = () => {
+        setItems(prev => {
+            let onlyUncheckedItems = prev.filter(item => item.checked == false);
+            return onlyUncheckedItems;
         })
     }
 
@@ -47,6 +54,7 @@ export default props => {
             onClearAll: clearAllHandler,
             onRemoveItem: removeItemHandler,
             onCheckItem: checkItemHandler,
+            onClearCompleted: clearCompletedHandler,
         }}>
             {props.children}
         </BudContext.Provider>

@@ -20,13 +20,18 @@ const Bud = () => {
     setIsModalShown(false);
   }
 
+  const clearCompletedHandler = () => {
+    ctx.onClearCompleted();
+  }
+
   return (
     <main className={styles.bud}>
         {isModalShown && ReactDOM.createPortal(<Modal isModalShown={isModalShown} onModalShow={modalShowHandler} onModalClose={modalCloseHandler}/>, document.getElementById('modal-root'))}
         <h1>Grocery Bud</h1>
         <Form />
         <List />
-        {ctx.items.length !== 0 && <button onClick={modalShowHandler}>Clear Items</button>}
+        {(ctx.items.find(item => item.checked == true) !== undefined || false) && <button className={styles['clear-completed__btn']} onClick={clearCompletedHandler}>Clear checked items</button>}
+        {ctx.items.length !== 0 && <button className={styles['clear-all__btn']} onClick={modalShowHandler}>Clear All Items</button>}
     </main>
   )
 }
