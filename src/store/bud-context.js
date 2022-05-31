@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const BudContext = React.createContext({
     items: [],
@@ -12,39 +12,45 @@ export const BudContext = React.createContext({
 export default props => {
     const [items, setItems] = useState([]);
 
-    const addItemHandler = (object) => {
-        setItems(prevItems => {
-            const newArray = [object, ...prevItems];
-            return newArray;
-        })
+    useEffect(() => {
+        const localItems = JSON.parse(window.localStorage.getItem('items'));
+        if(localItems) setItems(localItems);
+    }, [])
+
+    const addItemHandler = (obj) => {
+        const newArray = [obj, ...items];
+        setItems(newArray);
+        localStorage.setItem("items", JSON.stringify(newArray));
     }
 
     const clearAllHandler = () => {
         setItems([]);
+        localStorage.clear();
     }
 
     const removeItemHandler = (id) => {
-        setItems(prev => {
-            return prev.filter(item => item.id !== id);
-        })
+        const localItems = JSON.parse(localStorage.getItem('items'));
+        const filtered = localItems.filter(item => item.id !== id);
+        localStorage.setItem('items', JSON.stringify(filtered));
+        setItems(filtered);
     }
 
     const checkItemHandler = (id) => {
-        setItems(prev => {
-            let foundItem = prev.find(item => item.id == id);
-            let indexOfItem = prev.indexOf(foundItem);
-            foundItem = {...foundItem, checked: !foundItem.checked};
-            let newItems = [...prev];
-            newItems[indexOfItem] = foundItem;
-            return newItems;
-        })
+        const localItems = JSON.parse(localStorage.getItem('items'));
+        let foundItem = localItems.find(item => item.id == id);
+        let indexOfItem = localItems.indexOf(foundItem);
+        foundItem = {...foundItem, checked: !foundItem.checked};
+        let newItems = [...localItems];
+        newItems[indexOfItem] = foundItem;
+        localStorage.setItem('items', JSON.stringify(newItems));
+        setItems(newItems);
     }
 
     const clearCompletedHandler = () => {
-        setItems(prev => {
-            let onlyUncheckedItems = prev.filter(item => item.checked == false);
-            return onlyUncheckedItems;
-        })
+        const localItems = JSON.parse(localStorage.getItem('items'));
+        const filtered = localItems.filter(item => item.checked == false);
+        localStorage.setItem('items', JSON.stringify(filtered));
+        setItems(filtered);
     }
 
     return (
