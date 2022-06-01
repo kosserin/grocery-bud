@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 export const BudContext = React.createContext({
     items: [],
     onAddItem: (object) => {},
-    onClearAll: () => {},
-    onRemoveItem: (id) => {},
     onCheckItem: (id) => {},
+    onRemoveItem: (id) => {},
+    onEditItem: (iId, iText, iCheck) => {},
     onClearCompleted: () => {},
+    onClearAll: () => {},
 })
 
 export default props => {
@@ -53,14 +54,27 @@ export default props => {
         setItems(filtered);
     }
 
+    const editItemHandler = (iId, iText, iCheck) => {
+        console.log(iId, iText, iCheck);
+        const localItems = JSON.parse(localStorage.getItem('items'));
+        let foundItem = localItems.find(item => item.id == iId);
+        let indexOfItem = localItems.indexOf(foundItem);
+        foundItem = {...foundItem, checked: iCheck, text: iText};
+        let newItems = [...localItems];
+        newItems[indexOfItem] = foundItem;
+        localStorage.setItem('items', JSON.stringify(newItems));
+        setItems(newItems);
+    }
+
     return (
         <BudContext.Provider value={{
             items: items,
             onAddItem: addItemHandler,
-            onClearAll: clearAllHandler,
-            onRemoveItem: removeItemHandler,
             onCheckItem: checkItemHandler,
+            onEditItem: editItemHandler,
+            onRemoveItem: removeItemHandler,
             onClearCompleted: clearCompletedHandler,
+            onClearAll: clearAllHandler,
         }}>
             {props.children}
         </BudContext.Provider>

@@ -14,10 +14,15 @@
 
 .form input {
     background-color: rgba(14, 2, 15, 1);
-    font-weight: 400;
+    font-weight: 500;
     padding-inline: 8px;
     flex-grow: 1;
     transition: 250ms ease-out;
+    border: 1px solid transparent;
+}
+
+.form input:focus {
+    background-color: rgb(14, 2, 15);
 }
 
 .form button {
@@ -28,14 +33,18 @@
     transition: 250ms ease-out;
 }
 
-.form input.error, .form button.error {
-    background-color: rgba(250, 0, 0, .1);
-}
 
 .form button:hover {
     background-color: rgba(14, 2, 15, 1);
 }
 
+.form input.error, .form button.error {
+    background-color: rgba(250, 0, 0, .1);
+}
+
+.form button.error {
+    cursor: not-allowed;
+}
 
 @media(max-width: 500px) {
     .form {

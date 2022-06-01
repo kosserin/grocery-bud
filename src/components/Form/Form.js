@@ -35,7 +35,7 @@ const Form = () => {
   return (
     <form onSubmit={formSubmitHandler} className={styles.form}>
         <input className={`${error && styles['error']}`} onFocus={focusInputHandler} ref={inputRef} type="text" placeholder='e.g. eggs' />
-        <button className={`${error && styles['error']}`} type="submit">Submit</button>
+        <button className={`${error && styles['error']}`} disabled={error} type="submit">Submit</button>
     </form>
   )
 }

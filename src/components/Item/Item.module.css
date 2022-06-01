@@ -9,17 +9,18 @@
     transition: 250ms ease-out;
 }
 
+.item:hover {
+    transform: translateY(-2px);
+    background-color: rgb(9, 15, 6);
+}
+
 .item.checked {
     background-color: rgba(0, 255, 0, .1);
 }
 
-.item:hover {
-    transform: translateY(-2px);
-}
-
 .item h3 {
     flex-grow: 1;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1rem;
 }
 
@@ -27,9 +28,14 @@
     text-decoration: line-through;
 }
 
+.item-actions {
+    display: flex;
+    gap: 4px;
+}
+
 .item span {
     cursor: pointer;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,14 +43,28 @@
     opacity: .2;
 }
 
-.item:hover span:last-of-type {
+.item:hover .check-btn {
     opacity: 1;
 }
 
-.item span:first-of-type:hover {
+.item .close-btn:hover, .item .edit-btn:hover {
     opacity: 1;
 }
 
-.item span:first-of-type:hover + span:last-of-type {
+.item .close-btn:hover + .check-btn {
     opacity: .2;
+}
+
+.item .edit-btn:hover:nth-of-type(2) {
+    display: none;
+}
+
+span:first-of-type:hover ~ span:last-of-type {
+    opacity: .2;
+}
+
+@media(max-width:768px) {
+    .item span {
+        font-size: 1.75rem;
+    }
 }
